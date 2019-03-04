@@ -1,68 +1,79 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is bootstrapped with Create React App and Express.js
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+npm's `concurrently` package is used to run both frontend and backend simultaneously
+You can get the code under the **scripts** section of `package.json`
 
-### `npm test`
+## Demo of word frequency counter
+Open [http://139.59.12.178/ttt](http://139.59.12.178/ttt)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Code Components
 
-### `npm run build`
+Under `/src` directory, you will find the fronend in `App.js` file.<br>
+Under `/scripts/server.js`, you will get nodejs, expressjs initial settings.<br>
+Under `/src/server` directory, you will find all the API routes in `router.js` file & APIs in the controller `apiController.js` file.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend: App.js
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+**NPM packages used**
+* **axios**: To fetch the api
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In App.js, _handleSubmitFC_ validates the inputs and then makes a post request to the backend using axios.
+After this, the top N words and their frequency of occurrence diplays in the frontend, in a tabular format.
 
-### `npm run eject`
+For detailed explaination please go through the comments in the App.js file.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Backend: routes.js
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**NPM packages used**
+* **express**: NodeJS framework
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In routes.js, you will get routes of all the apis
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Backend: apiController.js
 
-## Learn More
+**NPM packages used**
+* **request**: To fetch files from remote server
+* **contractions**: To expand the contractions. eg. `we're = we are, ma'am = madam`
+* **url-exists**: To check if the remote file exists
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Execution:**
+1. Api validates the inputs, then it fetches the file from remote server.
+2. Clean the text of the file by replacing curly apostrophes with simple ones.
+3. Expand all the contractions, if required by user to get accurate results.
+4. Match the text with the pattern `/['\w]*[^\d\W]+/gi` and store all the valid words in an array.
+5. Count word frequency.
+6. Sort the words array in descending order.
+7. Send required output.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Test Cases
 
-### Code Splitting
+**1 Pattern validation of input: HTML level**
+<br>
+![Pattern validation of input: HTML Level](public/ttt-html-pattern-validation.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+**2 Pattern validation of input: Javascript level before post request**
+<br>
+![Pattern validation of input: HTML Level](public/ttt-javascript-pattern-validation.png)
 
-### Analyzing the Bundle Size
+**3 Check if file exists: Before feching the remote file using _url-exists_**
+<br>
+![Pattern validation of input: HTML Level](public/ttt-file-validation.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+**4 All good: Without expanding the contractions**
+<br>
+![Pattern validation of input: HTML Level](public/ttt-all-good.png)
 
-### Making a Progressive Web App
+**5 All good: With expanding the contractions**
+<br>
+![Pattern validation of input: HTML Level](public/ttt-expand-all-contractions.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+`NOTE: PLEASE GO THROUGH THE COMMENTS IN THE CODE FILES FOR DETAILED EXPLAINATION`
