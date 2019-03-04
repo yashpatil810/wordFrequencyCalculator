@@ -14,7 +14,7 @@ class App extends Component {
 
     handleSubmitFC = (e) => {                         // TRIGGER ON SUBMITING THE INPUT
         e.preventDefault();   
-        if(this.state.limit.match(/^[1-9]+$/)){       // INPUT VALIDATION
+        if(this.state.limit.match(/^[0-9]+$/)){       // INPUT VALIDATION
             axios({
                 method: 'post',
                 url: 'http://localhost:5001/api/api', // API URL
@@ -71,7 +71,7 @@ class App extends Component {
                             <a href="http://terriblytinytales.com/test.txt" target="_blank" rel="noopener noreferrer"><pre>http://terriblytinytales.com/test.txt</pre></a>
                             <form className="form-inline justify-content-center" onSubmit={this.handleSubmitFC.bind(this)}>
                                 <div className="form-group mr-2 mb-2">
-                                    <input type="text" className="form-control" id="inputCount" placeholder="Enter number" title="Please enter a positive integer" required pattern="[1-9]+" value={this.state.limit} onChange={(e) => this.setState({limit: e.target.value})}/>
+                                    <input type="text" className="form-control" id="inputCount" placeholder="Enter number" title="Please enter a positive integer" required pattern="[0-9]+" value={this.state.limit} onChange={(e) => this.setState({limit: e.target.value})}/>
                                 </div>
                                 <button type="submit" className="btn btn-primary mb-2">Submit</button>
                             </form>
